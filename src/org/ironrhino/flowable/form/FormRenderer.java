@@ -15,6 +15,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.form.FormProperty;
 import org.flowable.engine.form.FormType;
@@ -26,8 +28,6 @@ import org.flowable.engine.impl.form.EnumFormType;
 import org.flowable.engine.impl.form.LongFormType;
 import org.flowable.engine.impl.form.StringFormType;
 import org.flowable.engine.repository.ProcessDefinition;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.ServletActionContext;
 import org.ironrhino.common.support.DictionaryControl;
 import org.ironrhino.core.struts.I18N;
 import org.ironrhino.core.util.AppInfo;

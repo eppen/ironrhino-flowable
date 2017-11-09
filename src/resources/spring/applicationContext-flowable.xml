@@ -9,6 +9,8 @@
 		<property name="transactionManager" ref="transactionManager"/>
 		<property name="databaseSchemaUpdate" value="${processEngineConfiguration.databaseSchemaUpdate:true}" />
 		<property name="asyncExecutorActivate" value="${processEngineConfiguration.asyncExecutorActivate:true}" />
+		<property name="asyncHistoryEnabled" value="${processEngineConfiguration.asyncHistoryEnabled:false}" />
+		<property name="asyncHistoryExecutorActivate" value="${processEngineConfiguration.asyncHistoryExecutorActivate:false}" />
 		<property name="enableSafeBpmnXml" value="${processEngineConfiguration.enableSafeBpmnXml:true}"/>
 		<property name="history" value="${processEngineConfiguration.history:audit}" />
 		<property name="mailServerHost" value="${mail.smtp.host:smtp.gmail.com}" />
@@ -29,11 +31,11 @@
 	
 	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
 	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
 	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
 	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
-	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
 	<bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
-	<bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
 	<bean id="dynamicBpmnService" factory-bean="processEngine" factory-method="getDynamicBpmnService" />
  
 </beans>

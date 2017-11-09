@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.zip.ZipInputStream;
 
 import org.flowable.engine.ProcessEngine;
-import org.flowable.engine.ProcessEngineConfiguration;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.common.api.FlowableException;
 import org.flowable.engine.common.api.delegate.event.FlowableEventListener;
@@ -25,17 +24,6 @@ public class SpringProcessEngineConfiguration extends org.flowable.spring.Spring
 
 	@Autowired(required = false)
 	private List<FlowableEventListener> listeners;
-
-	public ProcessEngineConfiguration setAnnotationFontName(String annotationFontName) {
-		// hack
-		try {
-			ProcessEngineConfiguration.class.getDeclaredField("annotationFontName");
-			this.annotationFontName = annotationFontName;
-		} catch (NoSuchFieldException e) {
-
-		}
-		return this;
-	}
 
 	@Override
 	public void initFormTypes() {
@@ -81,7 +69,6 @@ public class SpringProcessEngineConfiguration extends org.flowable.spring.Spring
 					throw new FlowableException("couldn't auto deploy resource '" + resource + "': " + e.getMessage(),
 							e);
 				}
-
 			}
 		}
 	}
