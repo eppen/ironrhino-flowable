@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+
+	<property name="dist.jar.name" value="ironrhino-flowable-${version}.jar" />
+	<property name="dist.jar-sources.name" value="ironrhino-flowable-${version}-sources.jar" />
+	<property name="dist.jar.includes" value="org/flowable/**,org/ironrhino/flowable/**,META-INF/resources/**,resources/spring/applicationContext-flowable.xml,resources/view/meta/**,resources/view/process/*.ftl,resources/i18n/flowable/**" />
+
+	<target name="pre-jar">
+		<delete file="${target.dir}/${dist.jar.name}" />
+		<delete file="${target.dir}/${dist.jar-sources.name}" />
+	</target>
+
+	<target name="post-jar">
+		<mkdir dir="${classes.dir}/META-INF/resources/assets/scripts" />
+		<copy todir="${classes.dir}/META-INF/resources/assets/scripts" file="${webapp.dir}/assets/scripts/ironrhino.process.js" />
+		<jar jarfile="${target.dir}/${dist.jar.name}" basedir="${classes.dir}" includes="${dist.jar.includes}" />
+		<jar jarfile="${target.dir}/${dist.jar-sources.name}" basedir="${src.dir}" includes="${dist.jar.includes}" />
+		<delete dir="${classes.dir}/META-INF" />
+	</target>
+
+</project>

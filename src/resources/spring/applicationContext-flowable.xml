@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans 
+	xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean id="processEngineConfiguration" class="org.ironrhino.flowable.spring.SpringProcessEngineConfiguration">
+		<property name="dataSource" ref="dataSource" />
+		<property name="transactionManager" ref="transactionManager"/>
+		<property name="databaseSchemaUpdate" value="${processEngineConfiguration.databaseSchemaUpdate:true}" />
+		<property name="asyncExecutorActivate" value="${processEngineConfiguration.asyncExecutorActivate:true}" />
+		<property name="enableSafeBpmnXml" value="${processEngineConfiguration.enableSafeBpmnXml:true}"/>
+		<property name="history" value="${processEngineConfiguration.history:audit}" />
+		<property name="mailServerHost" value="${mail.smtp.host:smtp.gmail.com}" />
+		<property name="mailServerPort" value="${mail.smtp.port:465}" />
+		<property name="mailServerUsername" value="${mail.smtp.username:ironrhinotest@gmail.com}"></property>
+		<property name="mailServerPassword" value="${mail.smtp.password:testironrhino}"></property>
+		<property name="mailServerDefaultFrom" value="${mail.default.from:ironrhinotest@gmail.com}"></property>
+		<property name="mailServerUseSSL" value="${mail.use.ssl:true}" />
+		<property name="activityFontName" value="${processEngineConfiguration.activityFontName:宋体}"/>
+		<property name="labelFontName" value="${processEngineConfiguration.labelFontName:宋体}"/>
+		<property name="annotationFontName" value="${processEngineConfiguration.annotationFontName:宋体}"/>
+		<property name="deploymentResources" value="${processEngineConfiguration.deploymentResources:classpath*:/resources/bpmn/*.bpmn}" />
+	</bean>
+	
+	<bean id="processEngine" class="org.flowable.spring.ProcessEngineFactoryBean" destroy-method="destroy">
+		<property name="processEngineConfiguration" ref="processEngineConfiguration" />
+	</bean>
+	
+	<bean id="repositoryService" factory-bean="processEngine" factory-method="getRepositoryService" />
+	<bean id="runtimeService" factory-bean="processEngine" factory-method="getRuntimeService" />
+	<bean id="taskService" factory-bean="processEngine" factory-method="getTaskService" />
+	<bean id="historyService" factory-bean="processEngine" factory-method="getHistoryService" />
+	<bean id="managementService" factory-bean="processEngine" factory-method="getManagementService" />
+	<bean id="identityService" factory-bean="processEngine" factory-method="getIdentityService" />
+	<bean id="formService" factory-bean="processEngine" factory-method="getFormService" />
+	<bean id="dynamicBpmnService" factory-bean="processEngine" factory-method="getDynamicBpmnService" />
+ 
+</beans>
