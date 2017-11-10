@@ -1,15 +1,14 @@
 <#macro processFormElement name>
 <#assign element=formElements[name]/>
-<#assign templateName="/resources/view/process/form/"+processDefinitionKey/>
+<#assign templateName="/resources/view/bpmn/form/"+processDefinitionKey/>
 <#if formKey?has_content>
 	<#assign templateName+="_"+formKey/>
 </#if>
 <#assign templateName+="_"+name/>
 <#assign templateName+=".element.ftl"/>
-<@resourcePresentConditional value=templateName>
+<#if isTemplatePresent(templateName)>
 <#include templateName>
-</@resourcePresentConditional>
-<@resourcePresentConditional value=templateName negated=true>
+<#else>
 <#assign id=element.id!/>
 <#if !id?has_content>
 <#assign id='form_'+name/>
@@ -59,5 +58,5 @@
 	</div>
 </div>
 </#if>
-</@resourcePresentConditional>
+</#if>
 </#macro>
