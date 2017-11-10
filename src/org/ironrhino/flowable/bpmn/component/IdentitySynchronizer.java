@@ -1,10 +1,13 @@
 package org.ironrhino.flowable.bpmn.component;
 
+import java.util.Objects;
+
 import org.apache.ibatis.exceptions.PersistenceException;
 import org.flowable.engine.IdentityService;
 import org.flowable.idm.api.Group;
 import org.flowable.idm.api.User;
 import org.ironrhino.core.event.EntityOperationEvent;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.event.EventListener;
 import org.springframework.security.core.GrantedAuthority;
@@ -30,10 +33,20 @@ public class IdentitySynchronizer {
 		switch (event.getType()) {
 		case CREATE:
 		case UPDATE:
+			BeanWrapperImpl bw = new BeanWrapperImpl(user);
+			String email = null;
+			if (bw.isReadableProperty("email"))
+				email = (String) bw.getPropertyValue("email");
 			User u = identityService.createUserQuery().userId(user.getUsername()).singleResult();
 			if (u == null) {
 				u = identityService.newUser(user.getUsername());
+				u.setEmail(email);
 				identityService.saveUser(u);
+			} else {
+				if (!Objects.equals(u.getEmail(), email)) {
+					u.setEmail(email);
+					identityService.saveUser(u);
+				}
 			}
 			for (Group group : identityService.createGroupQuery().groupMember(u.getId()).list())
 				identityService.deleteMembership(u.getId(), group.getId());
