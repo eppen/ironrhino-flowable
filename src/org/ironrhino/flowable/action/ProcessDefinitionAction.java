@@ -147,11 +147,12 @@ public class ProcessDefinitionAction extends BaseAction {
 			ZipInputStream zipInputStream = new ZipInputStream(new FileInputStream(file));
 			repositoryService.createDeployment().enableDuplicateFiltering().name(fileFileName)
 					.addZipInputStream(zipInputStream).deploy();
+			addActionMessage("部署成功");
 		} else if (fileFileName.endsWith(".xml") || fileFileName.endsWith(".bpmn")) {
 			repositoryService.createDeployment().enableDuplicateFiltering().name(fileFileName)
 					.addInputStream(fileFileName, new FileInputStream(file)).deploy();
+			addActionMessage("部署成功");
 		}
-		addActionMessage("部署成功");
 		return SUCCESS;
 	}
 
