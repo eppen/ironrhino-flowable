@@ -3,6 +3,4 @@
 	<#assign templateName+="_"+formKey/>
 </#if>
 <#assign templateName+=".prepare.ftl"/>
-<#if isTemplatePresent(templateName)>
-<#include templateName>
-</#if>
+<#include templateName ignore_missing=true>

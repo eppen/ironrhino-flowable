@@ -3,7 +3,6 @@ package org.ironrhino.flowable.bpmn.action;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -53,8 +52,6 @@ import org.ironrhino.flowable.bpmn.model.TaskQueryCriteria;
 import org.ironrhino.flowable.bpmn.service.FormSubmissionService;
 import org.ironrhino.flowable.bpmn.service.ProcessHelper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.util.StreamUtils;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
@@ -107,14 +104,10 @@ public class TaskAction extends BaseAction {
 	private String assignee;
 
 	@Getter
-	@Setter
 	private String title;
 
 	@Getter
 	private Map<String, FormElement> formElements;
-
-	@Getter
-	private String formTemplate;
 
 	@Getter
 	@Setter
@@ -140,7 +133,6 @@ public class TaskAction extends BaseAction {
 	private String processDefinitionKey;
 
 	@Getter
-	@Setter
 	private String formKey;
 
 	@Getter
@@ -296,20 +288,6 @@ public class TaskAction extends BaseAction {
 					formRendererHandler.handle(formElements, processDefinition.getKey(), null);
 			processDefinitionKey = processDefinition.getKey();
 			formKey = formService.getStartFormKey(processDefinitionId);
-			StringBuilder sb = new StringBuilder();
-			sb.append("resources/view/bpmn/form/");
-			sb.append(processDefinitionKey);
-			if (StringUtils.isNotBlank(formKey))
-				sb.append("_").append(formKey);
-			sb.append(".ftl");
-			ClassPathResource cpr = new ClassPathResource(sb.toString());
-			if (cpr.exists() && cpr.isReadable()) {
-				try (InputStream is = cpr.getInputStream()) {
-					formTemplate = StreamUtils.copyToString(is, Charset.forName("UTF-8"));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 		} else {
 			task = taskService.createTaskQuery().taskId(taskId).singleResult();
 			if (task == null || !AuthzUtils.getUsername().equals(task.getAssignee()))
@@ -330,20 +308,6 @@ public class TaskAction extends BaseAction {
 			formKey = formService.getTaskFormKey(processDefinition.getId(), task.getTaskDefinitionKey());
 			if (StringUtils.isBlank(formKey))
 				formKey = task.getTaskDefinitionKey();
-			StringBuilder sb = new StringBuilder();
-			sb.append("resources/view/bpmn/form/");
-			sb.append(processDefinitionKey);
-			sb.append("_");
-			sb.append(formKey);
-			sb.append(".ftl");
-			ClassPathResource cpr = new ClassPathResource(sb.toString());
-			if (cpr.exists() && cpr.isReadable()) {
-				try (InputStream is = cpr.getInputStream()) {
-					formTemplate = StreamUtils.copyToString(is, Charset.forName("UTF-8"));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
 			historicProcessInstance = historyService.createHistoricProcessInstanceQuery()
 					.processInstanceId(task.getProcessInstanceId()).singleResult();
 			historicTaskInstances = historyService.createHistoricTaskInstanceQuery()

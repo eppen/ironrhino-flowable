@@ -1,5 +1,5 @@
-<#if formTemplate?has_content && formTemplate?index_of('<body>') gt -1>
-<@formTemplate?interpret/>
+<#if formKey?has_content && formKey?starts_with('/')>
+<#include formKey>
 <#else>
 <!DOCTYPE html>
 <#escape x as x?html><html>
@@ -11,8 +11,9 @@
 <#include "task_form.history.ftl">
 <#include "task_form.comments.ftl">
 <#include "task_form.attachments.ftl">
-<#if formTemplate?has_content && (formTemplate?index_of('<form') gt -1 || formTemplate?index_of('<@s.form') gt -1)>
-	<@formTemplate?interpret/>
+<#assign formTemplateName='form/'+processDefinitionKey+(formKey?has_content?then('_'+formKey,''))+'.ftl'>
+<#if isTemplatePresent(formTemplateName)>
+<#include formTemplateName>
 <#else>
 <#if !inputGridColumns??>
 <#assign inputGridColumns=0>
@@ -29,25 +30,19 @@
 	<#if processDefinitionId?has_content>
 	<input type="hidden" name="processDefinitionId" value="${processDefinitionId}"/>
 	</#if>
-	<#if formTemplate?has_content>
-		<@formTemplate?interpret/>
-	<#else>
-		<#if formElements??>
-		<#list formElements.entrySet() as entry>
-		<#if !submitFormPropertyName?has_content||submitFormPropertyName!=entry.key>
-		<@processFormElement name=entry.key />
-		</#if>
-		</#list>
-		</#if>
-		<#assign additionTemplateName="form/"+processDefinitionKey/>
-		<#if formKey?has_content>
-			<#assign additionTemplateName+="_"+formKey/>
-		</#if>
-		<#assign additionTemplateName+=".addition.ftl"/>
-		<#if isTemplatePresent(additionTemplateName)>
-		<#include additionTemplateName>
-		</#if>
+	<#if formElements??>
+	<#list formElements.entrySet() as entry>
+	<#if !submitFormPropertyName?has_content||submitFormPropertyName!=entry.key>
+	<@processFormElement name=entry.key />
 	</#if>
+	</#list>
+	</#if>
+	<#assign additionTemplateName="form/"+processDefinitionKey/>
+	<#if formKey?has_content>
+		<#assign additionTemplateName+="_"+formKey/>
+	</#if>
+	<#assign additionTemplateName+=".addition.ftl"/>
+	<#include additionTemplateName ignore_missing=true>
 	<div class="control-group comment" style="display:none;">
 			<label class="control-label" for="_comment_">${getText('comment')}</label>
 			<div class="controls">
