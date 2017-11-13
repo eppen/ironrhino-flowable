@@ -1,8 +1,9 @@
+<#ftl output_format='HTML'>
 <#if formKey?has_content && formKey?starts_with('/')>
 <#include formKey>
 <#else>
 <!DOCTYPE html>
-<#escape x as x?html><html>
+<html>
 <head>
 <title>${title}</title>
 </head>
@@ -75,5 +76,4 @@
 </#if>
 </body>
 </html>
-</#escape>
 </#if>
