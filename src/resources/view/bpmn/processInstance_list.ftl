@@ -26,10 +26,10 @@
 <#assign rowDynamicAttributes=r'{"data-deletable":"${entity.processInstance.suspended?string}","class":"${entity.processInstance.suspended?then("warning","")}"}'>
 <@richtable entityName="processInstance" columns=columns actionColumnButtons=actionColumnButtons bottomButtons=bottomButtons rowDynamicAttributes=rowDynamicAttributes searchable=false celleditable=false/>
 <form method="post" class="ajax view criteria form-horizontal" style="display:none;" data-columns="2">
-	<@s.textfield label=getText('processDefinitionKey') name="criteria.processDefinitionKey"/>
-	<@s.textfield label=getText('processDefinitionName') name="criteria.processDefinitionName"/>
-	<@s.textfield label=getText('processInstanceId') name="criteria.processInstanceId"/>
-	<@s.textfield label=getText('processInstanceBusinessKey') name="criteria.processInstanceBusinessKey"/>
+	<@s.textfield name="criteria.processDefinitionKey"/>
+	<@s.textfield name="criteria.processDefinitionName"/>
+	<@s.textfield name="criteria.processInstanceId"/>
+	<@s.textfield name="criteria.processInstanceBusinessKey"/>
 <@authorize ifAnyGranted="ROLE_ADMINISTRATOR">
 	<div class="control-group listpick" data-options="{'url':'<@url value="/user/pick?columns=username,name&enabled=true"/>','idindex':1,'nameindex':2}">
 	<@s.hidden id="criteria_involvedUser" name="criteria.involvedUser" class="listpick-id"/>
@@ -46,10 +46,8 @@
 	</div>
 	</div>
 </@authorize>
-<div class="row">
-	<div class="span12" style="text-align:center;">
-		<button type="submit" class="btn btn-primary">${getText('search')}</button> <button type="button" class="btn restore">${getText('restore')}</button>
-	</div>
+<div class="center">
+	<button type="submit" class="btn btn-primary">${getText('search')}</button> <button type="button" class="btn restore">${getText('restore')}</button>
 </div>
 </form>
 </body>
