@@ -23,7 +23,8 @@
 <@btn view="delegate"/>
 </#if>
 <#else>
-<@btn view="claim"/>
+'+'
+<@btn view="claim" windowoptions="{\'reloadonclose\':true}"/>
 </#if>
 '>
 <#assign bottomButtons='
