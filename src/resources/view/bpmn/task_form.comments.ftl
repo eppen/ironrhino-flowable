@@ -4,10 +4,10 @@
 	<#assign templateName+="_"+formKey/>
 </#if>
 <#assign templateName+=".comments.ftl"/>
-<#if isTemplatePresent(templateName)>
-<#include templateName>
-<#else>
-<#if comments?? && !comments.empty>
+<#assign template=.get_optional_template(templateName)>
+<#if template.exists>
+	<@template.include/>
+<#elseif comments?? && !comments.empty>
 	<table class="table">
 			<caption style="background-color: #bebec5;"><h5>${getText('comment')}</h5></caption>
 			<thead>
@@ -37,5 +37,4 @@
 			</#list>
 			</tbody>
 	</table>	
-</#if>
 </#if>

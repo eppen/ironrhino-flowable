@@ -12,9 +12,10 @@
 <#include "task_form.history.ftl">
 <#include "task_form.comments.ftl">
 <#include "task_form.attachments.ftl">
-<#assign formTemplateName='form/'+processDefinitionKey+(formKey?has_content?then('_'+formKey,''))+'.ftl'>
-<#if isTemplatePresent(formTemplateName)>
-<#include formTemplateName>
+<#assign templateName='form/'+processDefinitionKey+(formKey?has_content?then('_'+formKey,''))+'.ftl'>
+<#assign template=.get_optional_template(templateName)>
+<#if template.exists>
+<@template.include/>
 <#else>
 <#if !inputGridColumns??>
 <#assign inputGridColumns=0>

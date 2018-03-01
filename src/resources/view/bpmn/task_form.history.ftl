@@ -4,8 +4,9 @@
 	<#assign templateName+="_"+formKey/>
 </#if>
 <#assign templateName+=".history.ftl"/>
-<#if isTemplatePresent(templateName)>
-<#include templateName>
+<#assign template=.get_optional_template(templateName)>
+<#if template.exists>
+<@template.include/>
 <#else>
 <#if !historicProcessInstance??>
 <#if processDefinition?? && processDefinition.description?has_content>

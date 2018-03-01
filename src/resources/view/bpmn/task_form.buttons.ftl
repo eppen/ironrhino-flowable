@@ -4,8 +4,9 @@
 	<#assign templateName+="_"+formKey/>
 </#if>
 <#assign templateName+=".buttons.ftl"/>
-<#if isTemplatePresent(templateName)>
-<#include templateName>
+<#assign template=.get_optional_template(templateName)>
+<#if template.exists>
+	<@template.include/>
 <#else>
 	<div class="form-actions">
 	<#if submitFormPropertyName?has_content>

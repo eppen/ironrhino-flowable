@@ -4,10 +4,10 @@
 	<#assign templateName+="_"+formKey/>
 </#if>
 <#assign templateName+=".attachments.ftl"/>
-<#if isTemplatePresent(templateName)>
-<#include templateName>
-<#else>
-<#if attachments?? && !attachments.empty>
+<#assign template=.get_optional_template(templateName)>
+<#if template.exists>
+<	<@template.include/>
+<#elseif attachments?? && !attachments.empty>
 	<table class="table">
 			<caption style="background-color: #bebec5;"><h5>${getText('attachment')}</h5></caption>
 			<thead>
@@ -40,5 +40,4 @@
 			</#list>
 			</tbody>
 	</table>	
-</#if>
 </#if>

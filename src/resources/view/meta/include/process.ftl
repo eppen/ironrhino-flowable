@@ -6,8 +6,9 @@
 </#if>
 <#assign templateName+="_"+name/>
 <#assign templateName+=".element.ftl"/>
-<#if isTemplatePresent(templateName)>
-<#include templateName>
+<#assign template=.get_optional_template(templateName)>
+<#if template.exists>
+<@template.include/>
 <#else>
 <#assign id=element.id!/>
 <#if !id?has_content>

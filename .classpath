@@ -21,10 +21,10 @@
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/commons-logging-1.2.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/commons-net-3.6.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/commons-pool2-2.5.0.jar"/>
-	<classpathentry kind="lib" path="webapp/WEB-INF/lib/disruptor-3.3.7.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/disruptor-3.4.1.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/dom4j-2.1.0.jar"/>
-	<classpathentry kind="lib" path="webapp/WEB-INF/lib/freemarker-2.3.27.jar"/>
-	<classpathentry kind="lib" path="webapp/WEB-INF/lib/hibernate-commons-annotations-5.0.1.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/freemarker-2.3.28.jar"/>
+	<classpathentry kind="lib" path="webapp/WEB-INF/lib/hibernate-commons-annotations-5.0.2.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/hibernate-core-5.2.12.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/httpclient-4.5.4.jar"/>
 	<classpathentry kind="lib" path="webapp/WEB-INF/lib/httpcore-4.4.8.jar"/>
