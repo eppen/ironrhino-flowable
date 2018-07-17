@@ -11,7 +11,6 @@ import java.util.Map;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.io.IOUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
 import org.flowable.common.engine.api.FlowableException;
@@ -52,6 +51,7 @@ import org.ironrhino.flowable.bpmn.model.TaskQueryCriteria;
 import org.ironrhino.flowable.bpmn.service.FormSubmissionService;
 import org.ironrhino.flowable.bpmn.service.ProcessHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StreamUtils;
 
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.interceptor.annotations.InputConfig;
@@ -428,7 +428,7 @@ public class TaskAction extends BaseAction {
 			// ServletActionContext.getResponse().setHeader("Content-Disposition",
 			// "attachment;filename=" + attachment.getName());
 			ServletOutputStream os = ServletActionContext.getResponse().getOutputStream();
-			IOUtils.copy(is, os);
+			StreamUtils.copy(is, os);
 			os.flush();
 			os.close();
 		}

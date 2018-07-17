@@ -10,13 +10,12 @@ import java.util.zip.ZipInputStream;
 
 import javax.servlet.ServletOutputStream;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.struts2.ServletActionContext;
 import org.flowable.engine.HistoryService;
 import org.flowable.engine.RepositoryService;
 import org.flowable.engine.repository.ProcessDefinition;
 import org.flowable.engine.repository.ProcessDefinitionQuery;
-import org.apache.commons.io.IOUtils;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.struts2.ServletActionContext;
 import org.ironrhino.core.metadata.Authorize;
 import org.ironrhino.core.metadata.AutoConfig;
 import org.ironrhino.core.metadata.JsonConfig;
@@ -26,6 +25,7 @@ import org.ironrhino.core.struts.BaseAction;
 import org.ironrhino.flowable.bpmn.model.Row;
 import org.ironrhino.flowable.bpmn.service.ProcessTraceService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StreamUtils;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -158,7 +158,7 @@ public class ProcessDefinitionAction extends BaseAction {
 
 	public String download() throws Exception {
 		InputStream resourceAsStream = repositoryService.getResourceAsStream(deploymentId, resourceName);
-		byte[] byteArray = IOUtils.toByteArray(resourceAsStream);
+		byte[] byteArray = StreamUtils.copyToByteArray(resourceAsStream);
 		ServletOutputStream servletOutputStream = ServletActionContext.getResponse().getOutputStream();
 		servletOutputStream.write(byteArray, 0, byteArray.length);
 		servletOutputStream.flush();
@@ -172,7 +172,7 @@ public class ProcessDefinitionAction extends BaseAction {
 				.processDefinitionId(getUid()).singleResult();
 		String resourceName = processDefinition.getDiagramResourceName();
 		resourceAsStream = repositoryService.getResourceAsStream(processDefinition.getDeploymentId(), resourceName);
-		byte[] byteArray = IOUtils.toByteArray(resourceAsStream);
+		byte[] byteArray = StreamUtils.copyToByteArray(resourceAsStream);
 		ServletOutputStream servletOutputStream = ServletActionContext.getResponse().getOutputStream();
 		servletOutputStream.write(byteArray, 0, byteArray.length);
 		servletOutputStream.flush();
