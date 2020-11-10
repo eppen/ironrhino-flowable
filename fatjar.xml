@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE project>
+<project name="fatjar" default="fatjar" basedir=".">
+
+	<property name="flowable.version" value="6.6.0" />
+
+	<target name="fatjar">
+		<delete file="extralib/flowable-all-${flowable.version}.jar" />
+		<jar destfile="extralib/flowable-all-${flowable.version}.jar">
+			<zipfileset src="flowable/flowable-batch-service-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-batch-service-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-bpmn-converter-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-bpmn-model-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-dmn-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-dmn-engine-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-dmn-spring-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-engine-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-engine-common-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-engine-common-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-entitylink-service-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-entitylink-service-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-event-registry-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-event-registry-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-event-registry-configurator-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-event-registry-json-converter-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-event-registry-model-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-eventsubscription-service-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-eventsubscription-service-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-form-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-form-model-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-http-common-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-identitylink-service-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-identitylink-service-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-idm-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-idm-engine-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-idm-engine-configurator-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-idm-spring-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-idm-spring-configurator-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-image-generator-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-job-service-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-job-service-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-process-validation-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-spring-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-spring-common-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-task-service-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-task-service-api-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-variable-service-${flowable.version}.jar" />
+			<zipfileset src="flowable/flowable-variable-service-api-${flowable.version}.jar" />
+		</jar>
+		<copy file="extralib/flowable-all-${flowable.version}.jar" todir="webapp/WEB-INF/lib"/>
+	</target>
+
+</project>
